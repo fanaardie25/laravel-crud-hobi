@@ -12,7 +12,7 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="nama_hobi" class="form-label">Nama</label>
+                <label for="nama_hobi" class="form-label">Nama Hobi</label>
                 <input type="text" class="form-control" id="nama_hobi" name="name" value="{{ $datahobi->name }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>

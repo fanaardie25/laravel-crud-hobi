@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>crud hobi sederhana</title>
+    <title>Crud data siswa</title>
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Data Hobi</h1>
+        <h1 class="text-center">Data Siswa</h1>
         <div id="flash-messages" class="mb-3">
             {{-- @if (@session('success'))
             <div class="alert alert-success">
@@ -37,22 +37,24 @@
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Hobi</th>
+                    <th>Nama</th>
+                    <th>NISN</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="crud-table-body">
-                @foreach ($datahobi as $key => $hobi)
+                @foreach ($datasiswa as $key => $siswa)
                     <tr>
-                        <td>{{ $key+1 }}</td>
-                        <td>{{ $hobi->name }}</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $siswa->name }}</td>
+                        <td>{{ $siswa->nisn->nisn ?? '' }}</td>
                         <td class="d-flex justify-end">
-                            <form action="{{ route('hobi.destroy',$hobi->id) }}" method="POST">
+                            <form action="{{ route('siswa.destroy',$siswa->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin ingin menghapus data ini?')">Delete</button>
                             </form> | 
-                            <a href="{{ route('hobi.edit',$hobi->id) }}" class="btn btn-success">Edit</a>
+                            <a href="{{ route('siswa.edit',$siswa->id) }}" class="btn btn-success">Edit</a>
                         </td>
                     </tr>
                 @endforeach
@@ -69,11 +71,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('hobi.store') }}" method="POST" id="createForm">
+                    <form action="{{ route('siswa.store') }}" method="POST" id="createForm">
                         @csrf
                         <div class="mb-3">
-                            <label for="itemName" class="form-label">Nama Hobi</label>
+                            <label for="itemName" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="itemName" name="name" required value="{{ old('name') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemName" class="form-label">NISN</label>
+                            <input type="text" class="form-control" id="itemName" name="nisn" required value="{{ old('nisn') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>

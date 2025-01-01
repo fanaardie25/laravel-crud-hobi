@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hobi;
+use App\Models\Nisn;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
-class HobiController extends Controller
+class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datahobi = Hobi::all();
-        return view('hobi.app', compact('datahobi'));
+        $datasiswa = siswa::all();
+        return view('siswa.app', compact('datasiswa'));
     }
 
     /**
@@ -31,23 +32,23 @@ class HobiController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|max:20',
+            'nisn' => 'required|max:20',
         ],[
             'name.required' => 'Nama hobi tidak boleh kosong',
             'name.min' => 'Nama hobi minimal 3 karakter',
             'name.max' => 'Nama hobi maksimal 20 karakter',
+            'nisn.required' => 'Nisn tidak boleh kosong',
+            'nisn.max' => 'Nisn maksimal 20 karakter',
         ]);
 
-        $data = [
-            'name' => $request->input('name'),
-        ];
+        $siswa = Siswa::create([ 'name' => $request->input('name')]);
+        Nisn::create(['nisn' => $request->input('nisn'), 'siswa_id' => $siswa->id]);
 
-        Hobi::create($data);
-
-        return redirect()->route('hobi.index')->with('success','Data berhasil ditambahkan');
+        return redirect()->route('siswa.index')->with('success','Data berhasil ditambahkan');
     }
 
     /**
-     * Display the specified resource. 
+     * Display the specified resource.
      */
     public function show(string $id)
     {
@@ -59,8 +60,8 @@ class HobiController extends Controller
      */
     public function edit(string $id)
     {
-        $datahobi = Hobi::findOrFail($id);
-        return view('hobi.edit', compact('datahobi'));
+        $datasiswa = Siswa::findOrFail($id);
+        return view('siswa.edit', compact('datasiswa'));
     }
 
     /**
@@ -76,13 +77,15 @@ class HobiController extends Controller
             'name.max' => 'Nama hobi maksimal 20 karakter',
         ]);
 
-        $data = [
-            'name' => $request->input('name'),
-        ];
+        $siswa = Siswa::where('id',$id)->update([
+            'name' => $request->input('name')
+        ]);
 
-        Hobi::where('id',$id)->update($data);
+        Nisn::where('siswa_id',$id)->update([
+            'nisn' => $request->input('nisn'),
+        ]);
 
-        return redirect()->route('hobi.index')->with('success','data berhasil di update');
+        return redirect()->route('siswa.index')->with('success','data berhasil di update');
     }
 
     /**
@@ -90,8 +93,8 @@ class HobiController extends Controller
      */
     public function destroy(string $id)
     {
-        Hobi::where('id',$id)->delete();
+        Siswa::where('id',$id)->delete();
 
-        return redirect()->route('hobi.index')->with('success','Data berhasil di hapus');
+        return redirect()->route('siswa.index')->with('success','Data berhasil di hapus');
     }
 }
