@@ -77,7 +77,7 @@ class SiswaController extends Controller
             'name.max' => 'Nama hobi maksimal 20 karakter',
         ]);
 
-        $siswa = Siswa::where('id',$id)->update([
+        Siswa::where('id',$id)->update([ 
             'name' => $request->input('name')
         ]);
 

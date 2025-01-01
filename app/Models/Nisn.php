@@ -10,8 +10,4 @@ class Nisn extends Model
 {
     protected $table = 'nisns';
     protected $fillable = ['nisn','siswa_id'];
-
-    public function siswa(){
-        return $this->belongsTo(Siswa::class,);
-    }
 }
