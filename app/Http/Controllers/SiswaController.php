@@ -32,13 +32,14 @@ class SiswaController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|max:20',
-            'nisn' => 'required|max:20',
+            'nisn' => 'required|max:20|unique:nisns,nisn',
         ],[
             'name.required' => 'Nama hobi tidak boleh kosong',
             'name.min' => 'Nama hobi minimal 3 karakter',
             'name.max' => 'Nama hobi maksimal 20 karakter',
             'nisn.required' => 'Nisn tidak boleh kosong',
             'nisn.max' => 'Nisn maksimal 20 karakter',
+            'nisn.unique' => 'Nisn sudah ada',
         ]);
 
         $siswa = Siswa::create([ 'name' => $request->input('name')]);
@@ -71,10 +72,14 @@ class SiswaController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|max:20',
+            'nisn' => 'required|max:20|unique:nisns,nisn',
         ],[
             'name.required' => 'Nama hobi tidak boleh kosong',
             'name.min' => 'Nama hobi minimal 3 karakter',
             'name.max' => 'Nama hobi maksimal 20 karakter',
+            'nisn.required' => 'Nisn tidak boleh kosong',
+            'nisn.max' => 'Nisn maksimal 20 karakter',
+            'nisn.unique' => 'Nisn sudah ada',
         ]);
 
         Siswa::where('id',$id)->update([ 

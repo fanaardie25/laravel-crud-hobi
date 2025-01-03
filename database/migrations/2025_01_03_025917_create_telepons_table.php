@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nisns', function (Blueprint $table) {
+        Schema::create('telepons', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn', 20)->unique();
-            $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');
+            $table->string('telepon')->unique();
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nisns');
+        Schema::dropIfExists('telepons');
     }
 };
