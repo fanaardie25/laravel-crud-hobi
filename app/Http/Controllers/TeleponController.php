@@ -31,11 +31,12 @@ class TeleponController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomor' => 'required|unique:telepons,telepon',
+            'nomor' => 'required|unique:telepons,telepon|max:13',
             'student_id' => 'required|exists:students,id',
         ],[
             'nomor.required' => 'Nomor Telepon Wajib Diisi',
             'nomor.unique' => 'nomor telepon sudah ada',
+            'nomor.max' => 'maximal karakter adalah 13'
         ]);
 
         Telepon::create(['telepon' => $request->input('nomor'), 'student_id' => $request->input('student_id')]);
@@ -66,16 +67,16 @@ class TeleponController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nomor' => 'required|unique:telepons,telepon',
-            'student_id' => 'required|exists:students,id',
+            'nomor' => 'required|unique:telepons,telepon|max:13',
+            // 'student_id' => 'required|exists:students,id',
         ],[
             'nomor.required' => 'Nomor Telepon Wajib Diisi',
             'nomor.unique' => 'nomor telepon sudah ada',
+            'nomor.max' => 'maximal karakter adalah 13'
         ]);
 
         $data = [
             'telepon' => $request->input('nomor'),
-            'student_id' => $request->input('student_id'),
         ];
 
         Telepon::where('id',$id)->update($data);

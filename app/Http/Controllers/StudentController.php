@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $datastudent = Student::all();
+        $datastudent = Student::paginate(5); 
         return view('telephone.app', compact('datastudent'));
     }
 

@@ -38,15 +38,18 @@
                             <form action="{{ route('student.destroy',$student->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin ingin menghapus data ini?')">Delete</button>
+                                <button type="submit" class="btn btn-danger mr-2" onclick="return confirm('apakah kamu yakin ingin menghapus data ini?')">Delete</button>
                             </form> | 
-                            <a href="{{ route('student.edit',$student->id) }}" class="btn btn-success">Edit</a> | 
-                            <a href="{{ route('student.show',$student->id) }}" class="btn btn-warning">Detail</a>
+                            <a href="{{ route('student.edit',$student->id) }}" class="btn btn-success mr-2">Edit</a> | 
+                            <a href="{{ route('student.show',$student->id) }}" class="btn btn-warning mr-2">Detail</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-end">
+            {{ $datastudent->links() }}
+        </div>
     </div>
 
     <!-- Modal create -->

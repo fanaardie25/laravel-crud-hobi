@@ -11,7 +11,7 @@
         <form action="{{ route('telepon.update', $datatelepon->id) }}" method="POST">
             @csrf
             @method('PUT')
-            <input type="hidden" name="student_id" value="{{ $datatelepon->id }}">
+            <input type="hidden" name="student_id" value="{{ $datatelepon->student_id }}">
             <div class="mb-3">
                 <label for="nomor" class="form-label">No telepon</label>
                 <input type="text" class="form-control" id="nomor" name="nomor" value="{{ $datatelepon->telepon }}" required>
